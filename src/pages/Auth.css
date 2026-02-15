@@ -1,0 +1,89 @@
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+}
+
+.auth-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 440px;
+}
+
+.auth-back {
+    display: inline-block;
+    color: var(--rose-light);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    transition: var(--transition);
+}
+
+.auth-back:hover {
+    color: var(--rose);
+    transform: translateX(-4px);
+}
+
+.auth-card {
+    padding: 40px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.auth-emoji {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.auth-title {
+    font-family: var(--font-script);
+    font-size: 2.5rem;
+    color: var(--rose);
+    margin-bottom: 6px;
+}
+
+.auth-subtitle {
+    color: rgba(255, 245, 247, 0.5);
+    font-size: 0.9rem;
+}
+
+.auth-btn {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: rgba(255, 245, 247, 0.5);
+}
+
+.auth-switch a {
+    color: var(--rose);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.auth-switch a:hover {
+    color: var(--gold);
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 28px 20px;
+    }
+
+    .auth-title {
+        font-size: 2rem;
+    }
+}
