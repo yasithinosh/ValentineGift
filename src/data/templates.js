@@ -8,6 +8,7 @@ export const templates = [
         },
         backStyle: {
             background: 'linear-gradient(135deg, #ffe5ec 0%, #ffb3c6 50%, #ff6b81 100%)',
+            color: '#4a0010',
         },
         emoji: '🌹',
         pattern: 'roses',
@@ -21,6 +22,7 @@ export const templates = [
         },
         backStyle: {
             background: 'linear-gradient(135deg, #fff0f3 0%, #ffccd5 50%, #ff8fa3 100%)',
+            color: '#4a0010',
         },
         emoji: '💖',
         pattern: 'hearts',
