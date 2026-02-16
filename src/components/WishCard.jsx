@@ -48,9 +48,7 @@ export default function WishCard({ wish, autoOpen = false }) {
                                     src={wish.image_url}
                                     alt="Wish"
                                     className="card-image"
-                                    crossOrigin="anonymous"
-                                    referrerPolicy="no-referrer"
-                                    onError={(e) => { e.target.style.display = 'none'; }}
+                                    onError={(e) => { e.target.parentElement.style.display = 'none'; }}
                                 />
                             </div>
                         )}
