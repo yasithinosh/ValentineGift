@@ -1,9 +1,37 @@
+/* ===== Sparkles & Glow ===== */
+.sparkles-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sparkle {
+    position: absolute;
+    font-size: 28px;
+    pointer-events: none;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.9));
+}
+
+.card-glow-ring {
+    position: absolute;
+    inset: -15px;
+    border-radius: 28px;
+    z-index: -1;
+    transition: box-shadow 1s ease;
+}
+
+/* ===== Card Scene ===== */
 .wish-card-scene {
     perspective: 1200px;
     width: min(380px, 90vw);
     height: min(520px, 75vh);
     cursor: pointer;
     margin: 0 auto;
+    position: relative;
 }
 
 .wish-card-wrapper {
