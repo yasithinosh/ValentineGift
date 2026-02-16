@@ -50,8 +50,13 @@ export default function Dashboard() {
         try {
             let imageUrl = '';
             if (imageFile) {
-                imageUrl = await uploadImage(imageFile);
+                try {
+                    imageUrl = await uploadImage(imageFile);
+                } catch (imgErr) {
+                    imageUrl = '';
+                }
             }
+
             await createWish({
                 wishName: wishName.trim(),
                 toName: toName.trim(),

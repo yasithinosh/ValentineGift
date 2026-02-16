@@ -19,19 +19,19 @@ export async function uploadImage(file) {
 }
 
 export async function createWish({ wishName, toName, fromName, message, templateId, imageUrl }) {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error('Not authenticated');
+    // Don't pass user_id — the database default auth.uid() handles it
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) throw new Error('Not authenticated');
 
     const { data, error } = await supabase
         .from('wishes')
         .insert([{
-            user_id: user.id,
             wish_name: wishName.toLowerCase().trim(),
             to_name: toName,
             from_name: fromName,
             message,
             template_id: templateId,
-            image_url: imageUrl,
+            image_url: imageUrl || '',
         }])
         .select()
         .single();
@@ -52,13 +52,13 @@ export async function getWishByName(wishName) {
 }
 
 export async function getUserWishes() {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error('Not authenticated');
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) throw new Error('Not authenticated');
 
     const { data, error } = await supabase
         .from('wishes')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', session.user.id)
         .order('created_at', { ascending: false });
 
     if (error) throw error;
