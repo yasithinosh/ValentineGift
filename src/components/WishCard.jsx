@@ -42,9 +42,16 @@ export default function WishCard({ wish, autoOpen = false }) {
                 {/* BACK */}
                 <div className="wish-card-face wish-card-back" style={template.backStyle}>
                     <div className="card-back-content">
-                        {wish.image_url && (
+                        {wish.image_url && wish.image_url.length > 0 && (
                             <div className="card-image-wrapper">
-                                <img src={wish.image_url} alt="Wish" className="card-image" />
+                                <img
+                                    src={wish.image_url}
+                                    alt="Wish"
+                                    className="card-image"
+                                    crossOrigin="anonymous"
+                                    referrerPolicy="no-referrer"
+                                    onError={(e) => { e.target.style.display = 'none'; }}
+                                />
                             </div>
                         )}
                         <div className="card-message-area">
