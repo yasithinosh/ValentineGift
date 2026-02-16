@@ -26,7 +26,32 @@
     transform: rotateY(180deg);
 }
 
-/* ===== FRONT ===== */
+/* ===== FRONT — Photo Background Blend ===== */
+
+/* Faded photo layer behind gradient */
+.card-front-photo-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.25;
+    z-index: 0;
+    filter: blur(2px) saturate(1.3);
+    animation: photoFadeIn 1.5s ease-out;
+}
+
+@keyframes photoFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+
+    to {
+        opacity: 0.25;
+        transform: scale(1);
+    }
+}
+
 .card-front-content {
     position: relative;
     z-index: 2;
@@ -42,29 +67,31 @@
 .card-heart-icon {
     font-size: clamp(40px, 10vw, 64px);
     margin-bottom: 16px;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
 }
 
 .card-front-title {
     font-family: 'Great Vibes', cursive;
     font-size: clamp(1.6rem, 5vw, 2.5rem);
     color: white;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
 }
 
 .card-front-to {
     font-size: clamp(0.9rem, 3vw, 1.2rem);
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     font-weight: 500;
     margin-bottom: 20px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 }
 
 .card-tap-hint {
     font-size: clamp(0.8rem, 2.5vw, 0.95rem);
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 400;
     letter-spacing: 1px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* ===== PATTERNS ===== */
@@ -72,7 +99,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    opacity: 0.15;
+    opacity: 0.12;
 }
 
 .card-pattern--roses {
@@ -98,7 +125,7 @@
     background-position: 0 0, 10px 10px;
 }
 
-/* ===== BACK ===== */
+/* ===== BACK — Heart-Shaped Photo ===== */
 .card-back-content {
     position: relative;
     z-index: 2;
@@ -109,7 +136,7 @@
     height: 100%;
     padding: 20px 16px;
     text-align: center;
-    gap: 10px;
+    gap: 12px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -123,21 +150,59 @@
     border-radius: 2px;
 }
 
-.card-image-wrapper {
-    width: clamp(80px, 25vw, 130px);
-    height: clamp(80px, 25vw, 130px);
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+/* Heart-shaped photo using clip-path */
+.card-heart-photo {
+    width: clamp(100px, 30vw, 140px);
+    height: clamp(95px, 28vw, 130px);
     flex-shrink: 0;
+    position: relative;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+    animation: heartPhotoIn 0.8s ease-out;
 }
 
-.card-image {
+@keyframes heartPhotoIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.card-heart-photo-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    clip-path: path('M70 15 C55 -5, 20 -5, 10 20 C0 45, 25 70, 70 105 C115 70, 140 45, 130 20 C120 -5, 85 -5, 70 15 Z');
+    /* Scale the clip-path to fit the element */
+    clip-path: url(#heartClip);
+}
+
+/* Fallback: Use polygon approximation of heart that works with percentages */
+.card-heart-photo-img {
+    clip-path: polygon(50% 15%,
+            40% 5%,
+            25% 0%,
+            10% 5%,
+            0% 18%,
+            0% 35%,
+            5% 52%,
+            18% 68%,
+            35% 82%,
+            50% 95%,
+            65% 82%,
+            82% 68%,
+            95% 52%,
+            100% 35%,
+            100% 18%,
+            90% 5%,
+            75% 0%,
+            60% 5%,
+            50% 15%);
 }
 
 .card-message-area {
@@ -196,12 +261,13 @@
     }
 
     .card-back-content {
-        padding: 16px;
+        padding: 16px 12px;
         gap: 8px;
     }
 
-    .card-message {
-        max-height: 90px;
+    .card-heart-photo {
+        width: 90px;
+        height: 85px;
     }
 }
 

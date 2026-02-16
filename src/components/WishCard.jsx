@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { templates } from '../data/templates';
 import './WishCard.css';
 
 export default function WishCard({ wish, autoOpen = false }) {
     const [isOpen, setIsOpen] = useState(autoOpen);
     const template = templates.find(t => t.id === wish.template_id) || templates[0];
+
+    const hasImage = wish.image_url && wish.image_url.length > 0;
 
     return (
         <div className="wish-card-scene" onClick={() => setIsOpen(!isOpen)}>
@@ -16,8 +18,15 @@ export default function WishCard({ wish, autoOpen = false }) {
                 transition={{ duration: 0.8, type: 'spring', stiffness: 60, damping: 15 }}
                 style={{ transformStyle: 'preserve-3d' }}
             >
-                {/* FRONT */}
+                {/* FRONT — Template gradient + faded photo background */}
                 <div className="wish-card-face wish-card-front" style={template.frontStyle}>
+                    {/* Faded photo layer behind everything */}
+                    {hasImage && (
+                        <div
+                            className="card-front-photo-bg"
+                            style={{ backgroundImage: `url(${wish.image_url})` }}
+                        />
+                    )}
                     <div className={`card-pattern card-pattern--${template.pattern}`}></div>
                     <div className="card-front-content">
                         <motion.div
@@ -39,15 +48,15 @@ export default function WishCard({ wish, autoOpen = false }) {
                     </div>
                 </div>
 
-                {/* BACK */}
+                {/* BACK — Heart-shaped photo + message */}
                 <div className="wish-card-face wish-card-back" style={template.backStyle}>
                     <div className="card-back-content">
-                        {wish.image_url && wish.image_url.length > 0 && (
-                            <div className="card-image-wrapper">
+                        {hasImage && (
+                            <div className="card-heart-photo">
                                 <img
                                     src={wish.image_url}
                                     alt="Wish"
-                                    className="card-image"
+                                    className="card-heart-photo-img"
                                     onError={(e) => { e.target.parentElement.style.display = 'none'; }}
                                 />
                             </div>
